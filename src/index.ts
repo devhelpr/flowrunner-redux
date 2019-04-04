@@ -12,16 +12,16 @@ import { ReduxThunkActionTask } from './ReduxThunkActionTask';
 import { StoreObserverTask } from './StoreObserverTask';
 
 export {
-	ReduxActionTask,
-	ReduxArrayTask,
-	ReduxAssignArrayActionTask,
-	ReduxAssignTask,
-	ReduxClearArrayActionTask,
-	ReduxGetKeyTask,
-	ReduxGetTask,
-	ReduxKeyValueTask,
-	ReduxPushArrayActionTask,
-	ReduxSetKeyActionTask,
-	ReduxThunkActionTask,
-	StoreObserverTask
+  ReduxActionTask,
+  ReduxArrayTask,
+  ReduxAssignArrayActionTask,
+  ReduxAssignTask,
+  ReduxClearArrayActionTask,
+  ReduxGetKeyTask,
+  ReduxGetTask,
+  ReduxKeyValueTask,
+  ReduxPushArrayActionTask,
+  ReduxSetKeyActionTask,
+  ReduxThunkActionTask,
+  StoreObserverTask,
 };

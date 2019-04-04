@@ -1,58 +1,58 @@
 import * as Promise from 'promise';
-import { FlowTask, FlowTaskPackageType } from "@devhelpr/flowrunner";
+import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxKeyValueTask extends FlowTask {
-	public execute(node : any, services : any) {
-		console.log("RUNNING KeyValueTask: " + node.id + " - " + node.title);
-		
-		return true;	
-	}
+  public execute(node: any, services: any) {
+    console.log('RUNNING KeyValueTask: ' + node.id + ' - ' + node.title);
 
-	public getName() {
-		return "ReduxKeyValueTask"
-	}
+    return true;
+  }
 
-	public getFullName() {
-		return "ReduxKeyValue"
-	}
+  public getName() {
+    return 'ReduxKeyValueTask';
+  }
 
-	public getReducer(node : any) {
-		const setKeyActionId = node.title.replace(" ","") + "SetKeyAction";
-		return (state = {}, action : any) => {
-			switch (action.type) {
-				case setKeyActionId:
-					return Object.assign({}, state, {[action.key] : action.value});
-				default:
-					return state
-			}
-		}
-	}
+  public getFullName() {
+    return 'ReduxKeyValue';
+  }
 
-	public getIcon() {
-		return "reduxkeyvalue"
-	}
+  public getReducer(node: any) {
+    const setKeyActionId = node.title.replace(' ', '') + 'SetKeyAction';
+    return (state = {}, action: any) => {
+      switch (action.type) {
+        case setKeyActionId:
+          return Object.assign({}, state, { [action.key]: action.value });
+        default:
+          return state;
+      }
+    };
+  }
 
-	public getShape() {
-		return "rect"
-	}
+  public getIcon() {
+    return 'reduxkeyvalue';
+  }
 
-	public getTaskType() {
-		return "frontend"
-	}
+  public getShape() {
+    return 'rect';
+  }
 
-	public getPackageType() {
-		return FlowTaskPackageType.DEFAULT_NODE
-	}
+  public getTaskType() {
+    return 'frontend';
+  }
 
-	public getCategory() {
-		return "FlowCanvas"
-	}
+  public getPackageType() {
+    return FlowTaskPackageType.DEFAULT_NODE;
+  }
 
-	public getController() {
-		return "FlowCanvasController"
-	}
+  public getCategory() {
+    return 'FlowCanvas';
+  }
 
-	public getConfigMetaData() {
-		return []
-	}
+  public getController() {
+    return 'FlowCanvasController';
+  }
+
+  public getConfigMetaData() {
+    return [];
+  }
 }

@@ -1,104 +1,99 @@
 import * as Promise from 'promise';
-import { FlowTask, FlowTaskPackageType } from "@devhelpr/flowrunner";
-import { Observable } from "@reactivex/rxjs";
-import { isEqual } from "lodash";
+import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
+import { Observable } from '@reactivex/rxjs';
+import { isEqual } from 'lodash';
 
 export class StoreObserverTask extends FlowTask {
-	public execute(node : any, services : any) {
-		let counter = 0;
-		const observable = Observable.create((observer : any) => {
-			try {
-				if (node.propertyName !== undefined && 
-					node.propertyName != "") {
-					const observableSubscription = services.getObservable("storechange");					
+  public execute(node: any, services: any) {
+    let counter = 0;
+    const observable = Observable.create((observer: any) => {
+      try {
+        if (node.propertyName !== undefined && node.propertyName != '') {
+          const observableSubscription = services.getObservable('storechange');
 
-					if (observableSubscription !== undefined && observableSubscription !== false) {
-						
-						const observerSubscription = {
-							complete: () => {
-								console.log('StoreObserverTask: Completed observable for ',node.title)
-							},
-							error: (err : any) => {
-								observer.error(err);
-							},
-							next: (payload : any) => {
-								
-								// payload:
-								// - nextState
-								// - prevState
-								if (node.propertyName !== undefined && node.propertyName != null && node.propertyName != "") {
-									if (!isEqual(payload.nextState[node.propertyName], payload.prevState[node.propertyName])) {
-										observer.next(payload.nextState);
-									}
-								}
-							}
-						};
-						
-						observableSubscription.subscribe(observerSubscription);
-					} else {
-						observer.error("StoreObserverTask: Error - observable not found",node.observe);
-					}
-				} else {
-					observer.error("StoreObserverTask: Error - nothing to observe");
-				}
-			} catch (err) {
-				observer.error(err);
-			}
-		});
+          if (observableSubscription !== undefined && observableSubscription !== false) {
+            const observerSubscription = {
+              complete: () => {
+                console.log('StoreObserverTask: Completed observable for ', node.title);
+              },
+              error: (err: any) => {
+                observer.error(err);
+              },
+              next: (payload: any) => {
+                // payload:
+                // - nextState
+                // - prevState
+                if (node.propertyName !== undefined && node.propertyName != null && node.propertyName != '') {
+                  if (!isEqual(payload.nextState[node.propertyName], payload.prevState[node.propertyName])) {
+                    observer.next(payload.nextState);
+                  }
+                }
+              },
+            };
 
-		return observable;
-	}
+            observableSubscription.subscribe(observerSubscription);
+          } else {
+            observer.error('StoreObserverTask: Error - observable not found', node.observe);
+          }
+        } else {
+          observer.error('StoreObserverTask: Error - nothing to observe');
+        }
+      } catch (err) {
+        observer.error(err);
+      }
+    });
 
-	public isAttachedToExternalObservable() {
-		return true;
-	}
-	public isAttachedToStoreChanges() {
-		return true;
-	}
+    return observable;
+  }
 
-	public getDescription() {
-		return "Node that observes store changes for {{{propertyName}}}";
-	}
+  public isAttachedToExternalObservable() {
+    return true;
+  }
+  public isAttachedToStoreChanges() {
+    return true;
+  }
 
-	public getName() {
-		return "StoreObserverTask"
-	}
+  public getDescription() {
+    return 'Node that observes store changes for {{{propertyName}}}';
+  }
 
-	public getFullName() {
-		return "StoreObserver"
-	}
+  public getName() {
+    return 'StoreObserverTask';
+  }
 
-	public getIcon() {
-		return "storeobserver"
-	}
+  public getFullName() {
+    return 'StoreObserver';
+  }
 
-	public getShape() {
-		return "smallcircle"
-	}
+  public getIcon() {
+    return 'storeobserver';
+  }
 
-	public getDefaultColor() {
-		return "#00ff80ff";
-	}
+  public getShape() {
+    return 'smallcircle';
+  }
 
-	public getTaskType() {
-		return "both"
-	}
+  public getDefaultColor() {
+    return '#00ff80ff';
+  }
 
-	public getPackageType() {
-		return FlowTaskPackageType.DEFAULT_NODE
-	}
+  public getTaskType() {
+    return 'both';
+  }
 
-	public getCategory() {
-		return "FlowCanvas"
-	}
+  public getPackageType() {
+    return FlowTaskPackageType.DEFAULT_NODE;
+  }
 
-	public getController() {
-		return "FlowCanvasController"
-	}
+  public getCategory() {
+    return 'FlowCanvas';
+  }
 
-	public getConfigMetaData() {
-		return [
-			{name:"propertyName", defaultValue:"", valueType:"string", required: true}
-		]
-	}
+  public getController() {
+    return 'FlowCanvasController';
+  }
+
+  public getConfigMetaData() {
+    return [{ name: 'propertyName', defaultValue: '', valueType: 'string', required: true }];
+  }
 }

@@ -1,75 +1,70 @@
-import * as FlowRunner from "@devhelpr/flowrunner";
+import * as FlowRunner from '@devhelpr/flowrunner';
 import * as Promise from 'promise';
 
 export class ReduxArrayTask extends FlowRunner.FlowTask {
-	public execute(node : any, services : any) {
-		console.log("RUNNING ReduxArrayTask: "+node.id+" - "+node.title);
-		
-		return true;	
-	}
+  public execute(node: any, services: any) {
+    console.log('RUNNING ReduxArrayTask: ' + node.id + ' - ' + node.title);
 
-	public getName() {
-		return "ReduxArrayTask"
-	}
+    return true;
+  }
 
-	public getFullName() {
-		return "ReduxArray"
-	}
+  public getName() {
+    return 'ReduxArrayTask';
+  }
 
-	public getReducer(node : any) {
-		
-		const pushActionId = node.title.replace(" ","")+"PushArrayAction";
-		const clearActionId = node.title.replace(" ","")+"ClearArrayAction";
-		const assignActionId = node.title.replace(" ","")+"AssignArrayAction";
+  public getFullName() {
+    return 'ReduxArray';
+  }
 
-		return (state = [], action : any) => {
-			switch (action.type) {
+  public getReducer(node: any) {
+    const pushActionId = node.title.replace(' ', '') + 'PushArrayAction';
+    const clearActionId = node.title.replace(' ', '') + 'ClearArrayAction';
+    const assignActionId = node.title.replace(' ', '') + 'AssignArrayAction';
 
-				case clearActionId:
-					{
-						return [];
-					}
-				case assignActionId:
-					{
-						return action.list;
-					}	
-				case pushActionId:
-					{
-						const newState : any = state.slice();
-						newState.push(action.value);
-						return newState
-					}
-				default:
-					return state
-			}
-		}
-	}
+    return (state = [], action: any) => {
+      switch (action.type) {
+        case clearActionId: {
+          return [];
+        }
+        case assignActionId: {
+          return action.list;
+        }
+        case pushActionId: {
+          const newState: any = state.slice();
+          newState.push(action.value);
+          return newState;
+        }
+        default:
+          return state;
+      }
+    };
+  }
 
-	public getIcon() {
-		return "reduxarray"
-	}
+  public getIcon() {
+    return 'reduxarray';
+  }
 
-	public getShape() {
-		return "rect"
-	}
+  public getShape() {
+    return 'rect';
+  }
 
-	public getTaskType() {
-		return "frontend"
-	}
+  public getTaskType() {
+    return 'frontend';
+  }
 
-	public getPackageType() {
-		return FlowRunner.FlowTaskPackageType.DEFAULT_NODE
-	}
+  public getPackageType() {
+    return FlowRunner.FlowTaskPackageType.DEFAULT_NODE;
+  }
 
-	public getCategory() {
-		return "FlowCanvas"
-	}
+  public getCategory() {
+    return 'FlowCanvas';
+  }
 
-	public getController() {
-		return "FlowCanvasController"
-	}
+  public getController() {
+    return 'FlowCanvasController';
+  }
 
-	public getConfigMetaData() {
-		return []
-	}
+  public getConfigMetaData() {
+    return [];
+  }
 }
