@@ -1,20 +1,19 @@
-let FlowTask = require("cdmas/flowcontrol/FlowTask.js")
-let FlowTaskPackageType = require("cdmas/flowcontrol/FlowTaskPackageType.js");
-let Promise = require('promise');
+import * as Promise from 'promise';
+import { FlowTask, FlowTaskPackageType } from "@devhelpr/flowrunner";
 
-class ReactGetKeyTask extends FlowTask {
-	execute(node, services, dispatch) {
+export class ReduxGetKeyTask extends FlowTask {
+	public execute(node : any, services : any, callStack : any) : any {
 		
 		return new Promise((resolve,reject) => {
 			if (node.assignTo != undefined && node.readKey != undefined &&
 			 	node.assignTo != "" && node.readKey != "") {
 				
-				let reducerName = node.title.replaceAll(" ","");
+				const reducerName = node.title.replaceAll(" ","");
 
 				const store =  services.getStore().getState();
 
-				let payload = Object.assign({}, node.payload, {
-					[node.assignTo]:store[reducerName][node.readKey]
+				const payload = Object.assign({}, node.payload, {
+					[node.assignTo] : store[reducerName][node.readKey]
 				})
 				resolve(payload);
 			} else {
@@ -23,48 +22,46 @@ class ReactGetKeyTask extends FlowTask {
 		});
 	}
 
-	getName() {
-		return "ReactGetKeyTask"
+	public getName() {
+		return "ReduxGetKeyTask"
 	}
 
-	getFullName() {
-		return "ReactGetKey"
+	public getFullName() {
+		return "ReduxGetKey"
 	}
 
-	getDescription() {
+	public getDescription() {
 		return "Reducer name: {{{title}}} - get property: {{{readKey}}} set property {{{assignTo}}} in payload";
 	}
 
-	getIcon() {
+	public getIcon() {
 		return "reactgetkey"
 	}
 
-	getShape() {
+	public getShape() {
 		return "circle"
 	}
 
-	getTaskType() {
+	public getTaskType() {
 		return "frontend"
 	}
 
-	getPackageType() {
+	public getPackageType() {
 		return FlowTaskPackageType.DEFAULT_NODE
 	}
 
-	getCategory() {
+	public getCategory() {
 		return "FlowCanvas"
 	}
 
-	getController() {
+	public getController() {
 		return "FlowCanvasController"
 	}
 
-	getConfigMetaData() {
+	public getConfigMetaData() {
 		return [
 			{name:"readKey", defaultValue:"", valueType:"string", required: true},
 			{name:"assignTo", defaultValue:"", valueType:"string", required: true}
 		]
 	}
 }
-
-module.exports = ReactGetKeyTask

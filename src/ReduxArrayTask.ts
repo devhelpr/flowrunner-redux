@@ -1,29 +1,28 @@
-let FlowTask = require("cdmas/flowcontrol/FlowTask.js")
-let FlowTaskPackageType = require("cdmas/flowcontrol/FlowTaskPackageType.js");
-let Promise = require('promise');
+import * as FlowRunner from "@devhelpr/flowrunner";
+import * as Promise from 'promise';
 
-class ReduxArrayTask extends FlowTask {
-	execute(node, services) {
+export class ReduxArrayTask extends FlowRunner.FlowTask {
+	public execute(node : any, services : any) {
 		console.log("RUNNING ReduxArrayTask: "+node.id+" - "+node.title);
 		
 		return true;	
 	}
 
-	getName() {
+	public getName() {
 		return "ReduxArrayTask"
 	}
 
-	getFullName() {
+	public getFullName() {
 		return "ReduxArray"
 	}
 
-	getReducer(node) {
+	public getReducer(node : any) {
 		
 		const pushActionId = node.title.replace(" ","")+"PushArrayAction";
 		const clearActionId = node.title.replace(" ","")+"ClearArrayAction";
 		const assignActionId = node.title.replace(" ","")+"AssignArrayAction";
 
-		return (state = [], action) => {
+		return (state = [], action : any) => {
 			switch (action.type) {
 
 				case clearActionId:
@@ -36,7 +35,7 @@ class ReduxArrayTask extends FlowTask {
 					}	
 				case pushActionId:
 					{
-						let newState = state.slice();
+						const newState : any = state.slice();
 						newState.push(action.value);
 						return newState
 					}
@@ -46,33 +45,31 @@ class ReduxArrayTask extends FlowTask {
 		}
 	}
 
-	getIcon() {
+	public getIcon() {
 		return "reduxarray"
 	}
 
-	getShape() {
+	public getShape() {
 		return "rect"
 	}
 
-	getTaskType() {
+	public getTaskType() {
 		return "frontend"
 	}
 
-	getPackageType() {
-		return FlowTaskPackageType.DEFAULT_NODE
+	public getPackageType() {
+		return FlowRunner.FlowTaskPackageType.DEFAULT_NODE
 	}
 
-	getCategory() {
+	public getCategory() {
 		return "FlowCanvas"
 	}
 
-	getController() {
+	public getController() {
 		return "FlowCanvasController"
 	}
 
-	getConfigMetaData() {
+	public getConfigMetaData() {
 		return []
 	}
 }
-
-module.exports = ReduxArrayTask

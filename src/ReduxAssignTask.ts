@@ -1,28 +1,27 @@
-let FlowTask = require("cdmas/flowcontrol/FlowTask.js")
-let FlowTaskPackageType = require("cdmas/flowcontrol/FlowTaskPackageType.js");
-let Promise = require('promise');
+import * as Promise from 'promise';
+import { FlowTask, FlowTaskPackageType } from "@devhelpr/flowrunner";
 
 const REDUX_ASSIGN_SET_VALUE_ACTION = "REDUX_ASSIGN_SET_VALUE_ACTION";
 
-class ReduxAssignTask extends FlowTask {
-	execute(node, services, dispatch) {
+export class ReduxAssignTask extends FlowTask {
+	public execute(node : any, services : any, callStack : any) {
 		console.log("RUNNING ReduxAssignTask: "+node.id+" - "+node.title);
 		
 		return true;		
 	}
 
-	getName() {
+	public getName() {
 		return "ReduxAssignTask"
 	}
 
-	getFullName() {
+	public getFullName() {
 		return "ReduxAssign"
 	}
 
-	getReducer(node) {
+	public getReducer(node : any) {
 		
 		const actionId = node.title.replace(" ","")+"SetAction";
-		return (state = "", action) => {
+		return (state = "", action : any) => {
 			try {
 				switch (action.type) {
 					case actionId:
@@ -40,35 +39,33 @@ class ReduxAssignTask extends FlowTask {
 		}
 	}
 	
-	getIcon() {
+	public getIcon() {
 		return "reduxassign"
 	}
 
-	getShape() {
+	public getShape() {
 		return "rect"
 	}
 
-	getTaskType() {
+	public getTaskType() {
 		return "frontend"
 	}
 
-	getPackageType() {
+	public getPackageType() {
 		return FlowTaskPackageType.DEFAULT_NODE
 	}
 
-	getCategory() {
+	public getCategory() {
 		return "FlowCanvas"
 	}
 
-	getController() {
+	public getController() {
 		return "FlowCanvasController"
 	}
 
-	getConfigMetaData() {
+	public getConfigMetaData() {
 		return [
 			{name:"value", defaultValue:"", valueType:"string", required: false}
 		]
 	}
 }
-
-module.exports = ReduxAssignTask

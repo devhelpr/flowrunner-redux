@@ -1,27 +1,31 @@
 import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from "@devhelpr/flowrunner";
 
-export class ReduxAssignArrayActionTask extends FlowTask {
-	public execute(node : any, services : any, dispatch : any) {
+export class ReduxActionTask extends FlowTask {
+	public execute(node : any, services : any, callStack : any) {
 		
-		dispatch({
-			type : node.title.replace(" ","") + "AssignArrayAction",
-			list : node.payload.list
+		callStack.dispatch({
+			type:node.title.replace(" ","")+"SetAction",
+			value:node.payload.value
 		})
 
 		return true;
 	}
 
 	public getName() {
-		return "ReduxAssignArrayActionTask"
+		return "ReduxActionTask"
 	}
 
 	public getFullName() {
-		return "ReduxAssignArrayAction"
+		return "ReduxAction"
+	}
+
+	public getDescription() {
+		return "Node that performs a simple redux action";
 	}
 
 	public getIcon() {
-		return "reduxassignarrayaction"
+		return "reduxaction"
 	}
 
 	public getShape() {

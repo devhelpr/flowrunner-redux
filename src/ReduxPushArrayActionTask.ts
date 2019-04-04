@@ -1,49 +1,46 @@
-let FlowTask = require("cdmas/flowcontrol/FlowTask.js")
-let FlowTaskPackageType = require("cdmas/flowcontrol/FlowTaskPackageType.js");
-let Promise = require('promise');
+import * as Promise from 'promise';
+import { FlowTask, FlowTaskPackageType } from "@devhelpr/flowrunner";
 
-class ReduxPushArrayActionTask extends FlowTask {
-	execute(node, services, dispatch) {
+export class ReduxPushArrayActionTask extends FlowTask {
+	public execute(node : any, services : any, dispatch : any) {
 		
 		dispatch({
-			type:node.title.replace(" ","")+"PushArrayAction",
-			value:node.payload.value
+			type : node.title.replace(" ","") + "PushArrayAction",
+			value : node.payload.value
 		})
 
 		return true;
 	}
 
-	getName() {
+	public getName() {
 		return "ReduxPushArrayActionTask"
 	}
 
-	getFullName() {
+	public getFullName() {
 		return "ReduxPushArrayAction"
 	}
 
-	getIcon() {
+	public getIcon() {
 		return "reduxpusharrayaction"
 	}
 
-	getShape() {
+	public getShape() {
 		return "circle"
 	}
 
-	getTaskType() {
+	public getTaskType() {
 		return "frontend"
 	}
 
-	getPackageType() {
+	public getPackageType() {
 		return FlowTaskPackageType.DEFAULT_NODE
 	}
 
-	getCategory() {
+	public getCategory() {
 		return "FlowCanvas"
 	}
 
-	getController() {
+	public getController() {
 		return "FlowCanvasController"
 	}
 }
-
-module.exports = ReduxPushArrayActionTask

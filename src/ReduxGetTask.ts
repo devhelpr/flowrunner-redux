@@ -1,20 +1,19 @@
-let FlowTask = require("cdmas/flowcontrol/FlowTask.js")
-let FlowTaskPackageType = require("cdmas/flowcontrol/FlowTaskPackageType.js");
-let Promise = require('promise');
+import * as Promise from 'promise';
+import { FlowTask, FlowTaskPackageType } from "@devhelpr/flowrunner";
 
-class ReactGetTask extends FlowTask {
-	execute(node, services, dispatch) {
+export class ReduxGetTask extends FlowTask {
+	public execute(node : any, services : any, callStack : any) {
 		
 		return new Promise((resolve,reject) => {
 			if (node.assignTo != undefined &&
 			 	node.assignTo != "") {
 				
-				let reducerName = node.title.replaceAll(" ","");
+				const reducerName = node.title.replaceAll(" ","");
 
 				const store =  services.getStore().getState();
 
-				let payload = Object.assign({}, node.payload, {
-					[node.assignTo]:store[reducerName]
+				const payload = Object.assign({}, node.payload, {
+					[node.assignTo] : store[reducerName]
 				})
 				resolve(payload);
 			} else {
@@ -23,47 +22,45 @@ class ReactGetTask extends FlowTask {
 		});
 	}
 
-	getName() {
-		return "ReactGetTask"
+	public getName() {
+		return "ReduxGetTask"
 	}
 
-	getFullName() {
-		return "ReactGet"
+	public getFullName() {
+		return "ReduxGet"
 	}
 
-	getDescription() {
+	public getDescription() {
 		return "Get from store: Reducer name: {{{title}}} - and set property {{{assignTo}}} in payload";
 	}
 
-	getIcon() {
+	public getIcon() {
 		return "reactget"
 	}
 
-	getShape() {
+	public getShape() {
 		return "rect"
 	}
 
-	getTaskType() {
+	public getTaskType() {
 		return "frontend"
 	}
 
-	getPackageType() {
+	public getPackageType() {
 		return FlowTaskPackageType.DEFAULT_NODE
 	}
 
-	getCategory() {
+	public getCategory() {
 		return "FlowCanvas"
 	}
 
-	getController() {
+	public getController() {
 		return "FlowCanvasController"
 	}
 
-	getConfigMetaData() {
+	public getConfigMetaData() {
 		return [
 			{name:"assignTo", defaultValue:"", valueType:"string", required: true}
 		]
 	}
 }
-
-module.exports = ReactGetTask;

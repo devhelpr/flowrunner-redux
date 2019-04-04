@@ -1,38 +1,37 @@
-let FlowTask = require("cdmas/flowcontrol/FlowTask.js")
-let FlowTaskPackageType = require("cdmas/flowcontrol/FlowTaskPackageType.js");
-let Promise = require('promise');
-let Rx = require('@reactivex/rxjs');
-let _ = require('lodash');
+import * as Promise from 'promise';
+import { FlowTask, FlowTaskPackageType } from "@devhelpr/flowrunner";
+import { Observable } from "@reactivex/rxjs";
+import { isEqual } from "lodash";
 
-class StoreObserverTask extends FlowTask {
-	execute(node, services) {
+export class StoreObserverTask extends FlowTask {
+	public execute(node : any, services : any) {
 		let counter = 0;
-		var observable = Rx.Observable.create(function (observer) {
+		const observable = Observable.create((observer : any) => {
 			try {
 				if (node.propertyName !== undefined && 
 					node.propertyName != "") {
-					let observableSubscription = services.getObservable("storechange");					
+					const observableSubscription = services.getObservable("storechange");					
 
 					if (observableSubscription !== undefined && observableSubscription !== false) {
 						
-						var observerSubscription = {
-							next: (payload) => {
+						const observerSubscription = {
+							complete: () => {
+								console.log('StoreObserverTask: Completed observable for ',node.title)
+							},
+							error: (err : any) => {
+								observer.error(err);
+							},
+							next: (payload : any) => {
 								
 								// payload:
 								// - nextState
 								// - prevState
 								if (node.propertyName !== undefined && node.propertyName != null && node.propertyName != "") {
-									if (!_.isEqual(payload.nextState[node.propertyName], payload.prevState[node.propertyName])) {
+									if (!isEqual(payload.nextState[node.propertyName], payload.prevState[node.propertyName])) {
 										observer.next(payload.nextState);
 									}
 								}
-							},
-							error: (err) => {
-								observer.error(err);
-							},
-							complete: () => {
-								console.log('StoreObserverTask: Completed observable for ',node.title)
-							},
+							}
 						};
 						
 						observableSubscription.subscribe(observerSubscription);
@@ -50,58 +49,56 @@ class StoreObserverTask extends FlowTask {
 		return observable;
 	}
 
-	isAttachedToExternalObservable() {
+	public isAttachedToExternalObservable() {
 		return true;
 	}
-	isAttachedToStoreChanges() {
+	public isAttachedToStoreChanges() {
 		return true;
 	}
 
-	getDescription() {
+	public getDescription() {
 		return "Node that observes store changes for {{{propertyName}}}";
 	}
 
-	getName() {
+	public getName() {
 		return "StoreObserverTask"
 	}
 
-	getFullName() {
+	public getFullName() {
 		return "StoreObserver"
 	}
 
-	getIcon() {
+	public getIcon() {
 		return "storeobserver"
 	}
 
-	getShape() {
+	public getShape() {
 		return "smallcircle"
 	}
 
-	getDefaultColor() {
+	public getDefaultColor() {
 		return "#00ff80ff";
 	}
 
-	getTaskType() {
+	public getTaskType() {
 		return "both"
 	}
 
-	getPackageType() {
+	public getPackageType() {
 		return FlowTaskPackageType.DEFAULT_NODE
 	}
 
-	getCategory() {
+	public getCategory() {
 		return "FlowCanvas"
 	}
 
-	getController() {
+	public getController() {
 		return "FlowCanvasController"
 	}
 
-	getConfigMetaData() {
+	public getConfigMetaData() {
 		return [
 			{name:"propertyName", defaultValue:"", valueType:"string", required: true}
 		]
 	}
 }
-
-module.exports = StoreObserverTask
