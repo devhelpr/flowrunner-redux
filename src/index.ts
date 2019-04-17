@@ -25,5 +25,5 @@ export {
   ReduxSetKeyActionTask,
   ReduxThunkActionTask,
   StoreObserverTask,
-  start
+  start,
 };
