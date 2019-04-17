@@ -2,8 +2,8 @@ import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxSetKeyActionTask extends FlowTask {
-  public execute(node: any, services: any, callStack: any) {
-    callStack.dispatch({
+  public execute(node: any, services: any) {
+    services.callStack.dispatch({
       key: node.assignToKey,
       type: node.title.replace(' ', '') + 'SetKeyAction',
       value: node.payload.value,

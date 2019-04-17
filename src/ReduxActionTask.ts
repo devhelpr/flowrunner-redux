@@ -2,8 +2,8 @@ import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxActionTask extends FlowTask {
-  public execute(node: any, services: any, callStack: any) {
-    callStack.dispatch({
+  public execute(node: any, services: any) {
+    services.dispatch({
       type: node.title.replace(' ', '') + 'SetAction',
       value: node.payload.value,
     });

@@ -2,8 +2,8 @@ import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxAssignArrayActionTask extends FlowTask {
-  public execute(node: any, services: any, dispatch: any) {
-    dispatch({
+  public execute(node: any, services: any) {
+    services.dispatch({
       type: node.title.replace(' ', '') + 'AssignArrayAction',
       list: node.payload.list,
     });
