@@ -84,11 +84,11 @@ services.getStore = () => {
   return store;
 };
 
-function flowAction(actionName : string, payload : any) {
+function flowAction(actionName: string, payload: any) {
   const action = actions[actionName.replace(/ /g, '')];
 
-  if (typeof action != "undefined" && action != null) {
-    services.getStore().dispatch(action.action(action.nodeEvent, payload))
+  if (typeof action != 'undefined' && action != null) {
+    services.getStore().dispatch(action.action(action.nodeEvent, payload));
   }
 }
 
