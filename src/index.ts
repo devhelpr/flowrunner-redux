@@ -10,7 +10,7 @@ import { ReduxPushArrayActionTask } from './ReduxPushArrayActionTask';
 import { ReduxSetKeyActionTask } from './ReduxSetKeyActionTask';
 import { ReduxThunkActionTask } from './ReduxThunkActionTask';
 import { StoreObserverTask } from './StoreObserverTask';
-import { start } from './FrontendFlowEventRunner';
+import { startFlow, flowAction } from './FrontendFlowEventRunner';
 
 export {
   ReduxActionTask,
@@ -25,5 +25,6 @@ export {
   ReduxSetKeyActionTask,
   ReduxThunkActionTask,
   StoreObserverTask,
-  start,
+  startFlow, 
+  flowAction,
 };
