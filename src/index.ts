@@ -25,6 +25,6 @@ export {
   ReduxSetKeyActionTask,
   ReduxThunkActionTask,
   StoreObserverTask,
-  startFlow, 
+  startFlow,
   flowAction,
 };
