@@ -85,7 +85,7 @@ services.getStore = () => {
 };
 
 let start: any = (flowPackage: any) =>
-  FlowEventRunner.start(flowPackage, services, true).then((services : any) => {
+  FlowEventRunner.start(flowPackage, services, true).then((services: any) => {
     const rootReducer = Redux.combineReducers(reducers);
 
     if ((window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
