@@ -45,7 +45,7 @@ services.pluginClasses['StoreObserverTask'] = StoreObserverTask;
 FlowEventRunner.useFlowNodeOverrideAttachHook((node: any, task: any, eventEmitter: any, nodeEvent: any) => {
   if (typeof task.getAction === 'function') {
     let nodeInstance = (<any>Object).assign({}, node);
-    const actionName = node.title.replaceAll(' ', '');
+    const actionName = node.title.replace(/ /g, '');
     actions[actionName] = {
       action: task.getAction(actionName, node, eventEmitter),
       nodeEvent: nodeEvent,
@@ -84,7 +84,15 @@ services.getStore = () => {
   return store;
 };
 
-let start: any = (flowPackage: any) =>
+function flowAction(actionName : string, payload : any) {
+  const action = actions[actionName.replace(/ /g, '')];
+
+  if (typeof action != "undefined" && action != null) {
+    services.getStore().dispatch(action.action(action.nodeEvent, payload))
+  }
+}
+
+let startFlow: any = (flowPackage: any) =>
   FlowEventRunner.start(flowPackage, services, true).then((services: any) => {
     const rootReducer = Redux.combineReducers(reducers);
 
@@ -106,4 +114,4 @@ let start: any = (flowPackage: any) =>
     return services;
   });
 
-export { start };
+export { startFlow, flowAction };
