@@ -1,15 +1,15 @@
 import * as FlowRunner from '@devhelpr/flowrunner';
 import * as Promise from 'promise';
 
-export class ReduxArrayTask extends FlowRunner.FlowTask {
+export class ReduxArrayStateType extends FlowRunner.FlowTask {
   public execute(node: any, services: any) {
-    console.log('RUNNING ReduxArrayTask: ' + node.id + ' - ' + node.title);
+    console.log('RUNNING ReduxArrayStateType: ' + node.id + ' - ' + node.title);
 
     return true;
   }
 
   public getName() {
-    return 'ReduxArrayTask';
+    return 'ReduxArrayStateType';
   }
 
   public getFullName() {

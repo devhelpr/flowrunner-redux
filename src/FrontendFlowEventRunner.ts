@@ -4,13 +4,13 @@ import thunk from 'redux-thunk';
 
 import { FlowEventRunner, HumanFlowToMachineFlow } from '@devhelpr/flowrunner';
 import { ReduxActionTask } from './ReduxActionTask';
-import { ReduxArrayTask } from './ReduxArrayTask';
+import { ReduxArrayStateType } from './ReduxArrayStateType';
 import { ReduxAssignArrayActionTask } from './ReduxAssignArrayActionTask';
-import { ReduxAssignTask } from './ReduxAssignTask';
+import { ReduxPropertyStateType } from './ReduxPropertyStateType';
 import { ReduxClearArrayActionTask } from './ReduxClearArrayActionTask';
 import { ReduxGetKeyTask } from './ReduxGetKeyTask';
 import { ReduxGetTask } from './ReduxGetTask';
-import { ReduxKeyValueTask } from './ReduxKeyValueTask';
+import { ReduxHashmapStateType } from './ReduxHashmapStateType';
 import { ReduxPushArrayActionTask } from './ReduxPushArrayActionTask';
 import { ReduxSetKeyActionTask } from './ReduxSetKeyActionTask';
 import { ReduxThunkActionTask } from './ReduxThunkActionTask';
@@ -29,13 +29,13 @@ services = {
 };
 
 services.pluginClasses['ReduxActionTask'] = ReduxActionTask;
-services.pluginClasses['ReduxArrayTask'] = ReduxArrayTask;
+services.pluginClasses['ReduxArrayStateType'] = ReduxArrayStateType;
 services.pluginClasses['ReduxAssignArrayActionTask'] = ReduxAssignArrayActionTask;
-services.pluginClasses['ReduxAssignTask'] = ReduxAssignTask;
+services.pluginClasses['ReduxPropertyStateType'] = ReduxPropertyStateType;
 services.pluginClasses['ReduxClearArrayActionTask'] = ReduxClearArrayActionTask;
 services.pluginClasses['ReduxGetKeyTask'] = ReduxGetKeyTask;
 services.pluginClasses['ReduxGetTask'] = ReduxGetTask;
-services.pluginClasses['ReduxKeyValueTask'] = ReduxKeyValueTask;
+services.pluginClasses['ReduxHashmapStateType'] = ReduxHashmapStateType;
 services.pluginClasses['ReduxPushArrayActionTask'] = ReduxPushArrayActionTask;
 services.pluginClasses['ReduxSetKeyActionTask'] = ReduxSetKeyActionTask;
 services.pluginClasses['ReduxThunkActionTask'] = ReduxThunkActionTask;

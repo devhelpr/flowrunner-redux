@@ -1,19 +1,19 @@
 import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
-export class ReduxKeyValueTask extends FlowTask {
+export class ReduxHashmapStateType extends FlowTask {
   public execute(node: any, services: any) {
-    console.log('RUNNING KeyValueTask: ' + node.id + ' - ' + node.title);
+    console.log('RUNNING ReduxHashmapStateType: ' + node.id + ' - ' + node.title);
 
     return true;
   }
 
   public getName() {
-    return 'ReduxKeyValueTask';
+    return 'ReduxHashmapStateType';
   }
 
   public getFullName() {
-    return 'ReduxKeyValue';
+    return 'ReduxHashmap';
   }
 
   public getReducer(node: any) {
@@ -29,7 +29,7 @@ export class ReduxKeyValueTask extends FlowTask {
   }
 
   public getIcon() {
-    return 'reduxkeyvalue';
+    return 'reduxhashmap';
   }
 
   public getShape() {

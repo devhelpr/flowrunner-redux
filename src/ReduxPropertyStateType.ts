@@ -3,19 +3,19 @@ import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 const REDUX_ASSIGN_SET_VALUE_ACTION = 'REDUX_ASSIGN_SET_VALUE_ACTION';
 
-export class ReduxAssignTask extends FlowTask {
+export class ReduxPropertyStateType extends FlowTask {
   public execute(node: any, services: any, callStack: any) {
-    console.log('RUNNING ReduxAssignTask: ' + node.id + ' - ' + node.title);
+    console.log('RUNNING ReduxPropertyStateType: ' + node.id + ' - ' + node.title);
 
     return true;
   }
 
   public getName() {
-    return 'ReduxAssignTask';
+    return 'ReduxPropertyStateType';
   }
 
   public getFullName() {
-    return 'ReduxAssign';
+    return 'ReduxProperty';
   }
 
   public getReducer(node: any) {
@@ -39,7 +39,7 @@ export class ReduxAssignTask extends FlowTask {
   }
 
   public getIcon() {
-    return 'reduxassign';
+    return 'reduxproperty';
   }
 
   public getShape() {
