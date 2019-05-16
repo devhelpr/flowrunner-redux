@@ -2,7 +2,7 @@ import * as Redux from 'redux';
 import * as Rx from '@reactivex/rxjs';
 import thunk from 'redux-thunk';
 
-import { FlowEventRunner, HumanFlowToMachineFlow } from '@devhelpr/flowrunner';
+import { FlowEventRunner } from '@devhelpr/flowrunner';
 import { ReduxActionTask } from './ReduxActionTask';
 import { ReduxArrayStateType } from './ReduxArrayStateType';
 import { ReduxAssignArrayActionTask } from './ReduxAssignArrayActionTask';
@@ -42,7 +42,10 @@ services.pluginClasses['ReduxThunkActionTask'] = ReduxThunkActionTask;
 services.pluginClasses['StoreObserverTask'] = StoreObserverTask;
 
 // TODO : replace "hook : any" met interface
-FlowEventRunner.useFlowNodeOverrideAttachHook((node: any, task: any, eventEmitter: any, nodeEvent: any) => {
+
+let flowEventRunner = new FlowEventRunner();
+
+flowEventRunner.useFlowNodeOverrideAttachHook((node: any, task: any, eventEmitter: any, nodeEvent: any) => {
   if (typeof task.getAction === 'function') {
     let nodeInstance = (<any>Object).assign({}, node);
     const actionName = node.title.replace(/ /g, '');
@@ -53,7 +56,7 @@ FlowEventRunner.useFlowNodeOverrideAttachHook((node: any, task: any, eventEmitte
   }
 });
 
-FlowEventRunner.useFlowNodeRegisterHook((node: any, task: any) => {
+flowEventRunner.useFlowNodeRegisterHook((node: any, task: any) => {
   if (typeof task.getReducer === 'function') {
     reducers[node.title.replace(/ /g, '')] = task.getReducer(node);
     return true;
@@ -93,7 +96,7 @@ function flowAction(actionName: string, payload: any) {
 }
 
 let startFlow: any = (flowPackage: any) =>
-  FlowEventRunner.start(flowPackage, services, true).then((services: any) => {
+  flowEventRunner.start(flowPackage, services, true).then((services: any) => {
     const rootReducer = Redux.combineReducers(reducers);
 
     if ((window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
