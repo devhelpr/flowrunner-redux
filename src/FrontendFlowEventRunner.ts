@@ -117,4 +117,6 @@ let startFlow: any = (flowPackage: any) =>
     return services;
   });
 
-export { startFlow, flowAction };
+const getFlowEventRunner: any = () => flowEventRunner;
+
+export { startFlow, flowAction, getFlowEventRunner };
