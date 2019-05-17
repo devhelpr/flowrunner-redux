@@ -27,5 +27,5 @@ export {
   StoreObserverTask,
   startFlow,
   flowAction,
-  getFlowEventRunner
+  getFlowEventRunner,
 };
