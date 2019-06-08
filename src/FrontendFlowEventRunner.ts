@@ -45,7 +45,7 @@ services.pluginClasses['StoreObserverTask'] = StoreObserverTask;
 
 let flowEventRunner = new FlowEventRunner();
 
-flowEventRunner.useFlowNodeOverrideAttachHook((node: any, task: any, eventEmitter: any, nodeEvent: any) => {
+flowEventRunner.registerFlowNodeOverrideAttachHook((node: any, task: any, eventEmitter: any, nodeEvent: any) => {
   if (typeof task.getAction === 'function') {
     let nodeInstance = (<any>Object).assign({}, node);
     const actionName = node.title.replace(/ /g, '');
@@ -56,7 +56,7 @@ flowEventRunner.useFlowNodeOverrideAttachHook((node: any, task: any, eventEmitte
   }
 });
 
-flowEventRunner.useFlowNodeRegisterHook((node: any, task: any) => {
+flowEventRunner.registerFlowNodeRegisterHook((node: any, task: any) => {
   if (typeof task.getReducer === 'function') {
     reducers[node.title.replace(/ /g, '')] = task.getReducer(node);
     return true;

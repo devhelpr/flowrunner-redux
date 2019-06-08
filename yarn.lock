@@ -139,10 +139,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@devhelpr/flowrunner@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@devhelpr/flowrunner/-/flowrunner-0.2.0.tgz#75b6fb0a20df381cd9e0374a78d443d0e7c68b36"
-  integrity sha512-V2c9RAC0ybZsBFAIbZ7b5mhmMp05M5sayluk8IauF1sxhQzWgRSbyYZcpE3isLWpBZpdib+uzRacCKlbjvw/mw==
+"@devhelpr/flowrunner@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@devhelpr/flowrunner/-/flowrunner-0.3.0.tgz#ee0c9db60b38340a840aeefa21aa526d7d064ac3"
+  integrity sha512-QlbFjIer9dBLr0o41HkLoROFiH4jVDxFlrWvnPKhb4QFYcdttLJSL8EhOYitrZOL4RHUCZEZGQERxeXLek/vjw==
   dependencies:
     "@reactivex/rxjs" "^6.4.0"
     "@types/uuid" "^3.4.4"
@@ -1367,9 +1367,9 @@ growly@^1.3.0:
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
 handlebars@^4.1.0:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.1.tgz#6e4e41c18ebe7719ae4d38e5aca3d32fa3dd23d3"
-  integrity sha512-3Zhi6C0euYZL5sM0Zcy7lInLXKQ+YLcF/olbN010mzGQ4XVm50JeyBnMqofHh696GrciGruC7kCcApPDJvVgwA==
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
+  integrity sha512-nvfrjqvt9xQ8Z/w0ijewdD/vvWDTOweBUm96NTr66Wfvo1mJenBLwcYmPs3TIBP5ruzYGD7Hx/DaM9RmhroGPw==
   dependencies:
     neo-async "^2.6.0"
     optimist "^0.6.1"
