@@ -14,7 +14,7 @@ export class StoreObserverTask extends FlowTask {
           if (observableSubscription !== undefined && observableSubscription !== false) {
             const observerSubscription = {
               complete: () => {
-                console.log('StoreObserverTask: Completed observable for ', node.title);
+                console.log('StoreObserverTask: Completed observable for ', node.name);
               },
               error: (err: any) => {
                 observer.error(err);

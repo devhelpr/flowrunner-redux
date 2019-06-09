@@ -3,7 +3,7 @@ import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxThunkActionTask extends FlowTask {
   public execute(node: any) {
-    console.log('RUNNING ReduxThunkActionTask: ' + node.id + ' - ' + node.title);
+    console.log('RUNNING ReduxThunkActionTask: ' + node.id + ' - ' + node.name);
 
     return true;
   }

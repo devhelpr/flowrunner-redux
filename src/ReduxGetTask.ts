@@ -5,7 +5,7 @@ export class ReduxGetTask extends FlowTask {
   public execute(node: any, services: any, callStack: any) {
     return new Promise((resolve, reject) => {
       if (node.assignTo != undefined && node.assignTo != '') {
-        const reducerName = node.title.replaceAll(' ', '');
+        const reducerName = node.name.replaceAll(' ', '');
 
         const store = services.getStore().getState();
 

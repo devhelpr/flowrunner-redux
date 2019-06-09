@@ -3,7 +3,7 @@ import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxHashmapStateType extends FlowTask {
   public execute(node: any, services: any) {
-    console.log('RUNNING ReduxHashmapStateType: ' + node.id + ' - ' + node.title);
+    console.log('RUNNING ReduxHashmapStateType: ' + node.id + ' - ' + node.name);
 
     return true;
   }
@@ -17,7 +17,7 @@ export class ReduxHashmapStateType extends FlowTask {
   }
 
   public getReducer(node: any) {
-    const setKeyActionId = node.title.replace(' ', '') + 'SetKeyAction';
+    const setKeyActionId = node.name.replace(' ', '') + 'SetKeyAction';
     return (state = {}, action: any) => {
       switch (action.type) {
         case setKeyActionId:

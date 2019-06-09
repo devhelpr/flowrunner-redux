@@ -48,7 +48,7 @@ let flowEventRunner = new FlowEventRunner();
 flowEventRunner.registerFlowNodeOverrideAttachHook((node: any, task: any, eventEmitter: any, nodeEvent: any) => {
   if (typeof task.getAction === 'function') {
     let nodeInstance = (<any>Object).assign({}, node);
-    const actionName = node.title.replace(/ /g, '');
+    const actionName = node.name.replace(/ /g, '');
     actions[actionName] = {
       action: task.getAction(actionName, node, eventEmitter),
       nodeEvent: nodeEvent,
@@ -58,7 +58,7 @@ flowEventRunner.registerFlowNodeOverrideAttachHook((node: any, task: any, eventE
 
 flowEventRunner.registerFlowNodeRegisterHook((node: any, task: any) => {
   if (typeof task.getReducer === 'function') {
-    reducers[node.title.replace(/ /g, '')] = task.getReducer(node);
+    reducers[node.name.replace(/ /g, '')] = task.getReducer(node);
     return true;
   }
   return false;

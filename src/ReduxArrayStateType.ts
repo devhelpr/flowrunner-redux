@@ -3,7 +3,7 @@ import * as Promise from 'promise';
 
 export class ReduxArrayStateType extends FlowRunner.FlowTask {
   public execute(node: any, services: any) {
-    console.log('RUNNING ReduxArrayStateType: ' + node.id + ' - ' + node.title);
+    console.log('RUNNING ReduxArrayStateType: ' + node.id + ' - ' + node.name);
 
     return true;
   }
@@ -17,9 +17,9 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
   }
 
   public getReducer(node: any) {
-    const pushActionId = node.title.replace(' ', '') + 'PushArrayAction';
-    const clearActionId = node.title.replace(' ', '') + 'ClearArrayAction';
-    const assignActionId = node.title.replace(' ', '') + 'AssignArrayAction';
+    const pushActionId = node.name.replace(' ', '') + 'PushArrayAction';
+    const clearActionId = node.name.replace(' ', '') + 'ClearArrayAction';
+    const assignActionId = node.name.replace(' ', '') + 'AssignArrayAction';
 
     return (state = [], action: any) => {
       switch (action.type) {

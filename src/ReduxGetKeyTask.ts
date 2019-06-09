@@ -5,7 +5,7 @@ export class ReduxGetKeyTask extends FlowTask {
   public execute(node: any, services: any, callStack: any): any {
     return new Promise((resolve, reject) => {
       if (node.assignTo != undefined && node.readKey != undefined && node.assignTo != '' && node.readKey != '') {
-        const reducerName = node.title.replaceAll(' ', '');
+        const reducerName = node.name.replaceAll(' ', '');
 
         const store = services.getStore().getState();
 

@@ -5,7 +5,7 @@ const REDUX_ASSIGN_SET_VALUE_ACTION = 'REDUX_ASSIGN_SET_VALUE_ACTION';
 
 export class ReduxPropertyStateType extends FlowTask {
   public execute(node: any, services: any, callStack: any) {
-    console.log('RUNNING ReduxPropertyStateType: ' + node.id + ' - ' + node.title);
+    console.log('RUNNING ReduxPropertyStateType: ' + node.id + ' - ' + node.name);
 
     return true;
   }
@@ -19,7 +19,7 @@ export class ReduxPropertyStateType extends FlowTask {
   }
 
   public getReducer(node: any) {
-    const actionId = node.title.replace(' ', '') + 'SetAction';
+    const actionId = node.name.replace(' ', '') + 'SetAction';
     return (state = '', action: any) => {
       try {
         switch (action.type) {
