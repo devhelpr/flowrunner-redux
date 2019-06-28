@@ -95,9 +95,9 @@ function flowAction(actionName: string, payload: any) {
   }
 }
 
-let startFlow: any = (flowPackage: any, appReducers : any) =>
+let startFlow: any = (flowPackage: any, appReducers: any) =>
   flowEventRunner.start(flowPackage, services, true).then((services: any) => {
-    const rootReducer = Redux.combineReducers(Object.assign({}, reducers,appReducers));
+    const rootReducer = Redux.combineReducers(Object.assign({}, reducers, appReducers));
 
     if ((window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
       const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
