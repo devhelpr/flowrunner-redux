@@ -1,3 +1,4 @@
+import { ReactComponentFlowConnector } from './components/ReactComponentFlowConnector';
 import { ReduxActionTask } from './ReduxActionTask';
 import { ReduxArrayStateType } from './ReduxArrayStateType';
 import { ReduxAssignArrayActionTask } from './ReduxAssignArrayActionTask';
@@ -13,6 +14,7 @@ import { StoreObserverTask } from './StoreObserverTask';
 import { startFlow, flowAction, getFlowEventRunner } from './FrontendFlowEventRunner';
 
 export {
+  ReactComponentFlowConnector,
   ReduxPropertyStateType,
   ReduxArrayStateType,
   ReduxHashmapStateType,
