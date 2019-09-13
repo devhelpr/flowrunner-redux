@@ -23,7 +23,7 @@ export const ReactComponentFlowConnector= <P extends object>(Component: React.Co
 		componentDidMount() {
 			const observable = getFlowEventRunner().getObservableNode(this.props.nodeName);
 			if (observable) {
-				observable.subscrive({
+				observable.subscribe({
 					next: (payload: any) => {
 						this.setState({
 							showWrappedComponent : true
