@@ -101,7 +101,7 @@ let startFlow: any = (flowPackage: any, appReducers: any) =>
 
     if (
       process.env.NODE_ENV !== 'production' &&
-      (typeof window !== "undefined" && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined)
+      (typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined)
     ) {
       const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
       const enhancer = composeEnhancers(Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')));
