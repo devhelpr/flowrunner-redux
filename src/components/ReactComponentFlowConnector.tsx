@@ -16,6 +16,7 @@ export interface ReactComponentFlowConnectorProps extends ReactComponentFlowConn
 export interface ReactComponentFlowConnectorState {
 	showWrappedComponent: boolean;
 	payload: any;
+	renderCounter: number;
 }
 
 export const ReactComponentFlowConnector= <P extends ReactComponentFlowConnectorProps>(Component: React.ComponentType<P>) => {
@@ -28,8 +29,11 @@ export const ReactComponentFlowConnector= <P extends ReactComponentFlowConnector
 
 		state = {
 			showWrappedComponent: false,
-			payload : {}
+			payload : {},
+			renderCounter : 1
 		}
+
+		renderCounter = 1;
 
 		componentDidMount() {
 			const observable = getFlowEventRunner().getObservableNode(this.props.nodeName);
@@ -38,7 +42,8 @@ export const ReactComponentFlowConnector= <P extends ReactComponentFlowConnector
 					next: (payload: any) => {
 						this.setState({
 							showWrappedComponent : payload.showComponent !== undefined ? !!payload.showComponent : true,
-							payload: payload
+							payload: payload,
+							renderCounter: this.state.renderCounter + 1
 						})
 					}
 				})
@@ -46,7 +51,8 @@ export const ReactComponentFlowConnector= <P extends ReactComponentFlowConnector
 		}
 
 		render() {			
-			if (this.state.showWrappedComponent) {
+			if (this.state.showWrappedComponent && this.renderCounter < this.state.renderCounter) {
+				this.renderCounter = this.state.renderCounter;
 				return <Component {...this.props as P} payload={this.state.payload} />;
 			}
 			return <></>;
