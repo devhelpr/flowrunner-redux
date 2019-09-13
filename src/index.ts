@@ -1,4 +1,5 @@
 import { ReactComponentFlowConnector } from './components/ReactComponentFlowConnector';
+import { ReactComponentTriggerFlow } from './components/ReactComponentTriggerFlow';
 import { ReduxActionTask } from './ReduxActionTask';
 import { ReduxArrayStateType } from './ReduxArrayStateType';
 import { ReduxAssignArrayActionTask } from './ReduxAssignArrayActionTask';
@@ -15,6 +16,7 @@ import { startFlow, flowAction, getFlowEventRunner } from './FrontendFlowEventRu
 
 export {
   ReactComponentFlowConnector,
+  ReactComponentTriggerFlow,
   ReduxPropertyStateType,
   ReduxArrayStateType,
   ReduxHashmapStateType,
