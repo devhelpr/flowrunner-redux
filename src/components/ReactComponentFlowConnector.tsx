@@ -10,7 +10,7 @@ export interface ReactComponentFlowConnectorState {
 	showWrappedComponent: boolean;
 }
 
-export function ReactComponentFlowConnector(WrappedComponent: new() => React.Component<any, any>) {
+export const ReactComponentFlowConnector= <P extends object>(Component: React.ComponentType<P>) => {
 	return class extends React.Component<ReactComponentFlowConnectorProps, ReactComponentFlowConnectorState> {
 		constructor(props: any) {
 			super(props);
@@ -35,7 +35,7 @@ export function ReactComponentFlowConnector(WrappedComponent: new() => React.Com
 
 		render() {			
 			if (this.state.showWrappedComponent) {
-				return <WrappedComponent {...this.props} />;
+				return <Component {...this.props as P} />;
 			}
 			return <></>;
 		}
