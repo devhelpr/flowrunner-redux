@@ -41,7 +41,7 @@ export const ReactComponentFlowConnector= <P extends ReactComponentFlowConnector
 				observable.subscribe({
 					next: (payload: any) => {
 						this.setState({
-							showWrappedComponent : payload.showComponent !== undefined ? !!payload.showComponent : true,
+							showWrappedComponent : payload.showComponent !== undefined ? payload.showComponent : true,
 							payload: payload,
 							renderCounter: this.state.renderCounter + 1
 						})
@@ -51,9 +51,19 @@ export const ReactComponentFlowConnector= <P extends ReactComponentFlowConnector
 		}
 
 		render() {			
+			// TODO : hoe hier zorgen dat Component echt een nieuwe instantie is
+			//   bij wisselen van layout/form ? (payload veranderd dan)
+			//  ... is render prop hier een oplossing voor ? wellicht alleen intern 
+			//   {getComponent()}
+			//   getComponent => () => {
+			//		return ...		
+			//   };
+			const getComponent = () => {
+				return <Component {...this.props as P} payload={this.state.payload} />;
+			}
 			if (this.state.showWrappedComponent && this.renderCounter < this.state.renderCounter) {
 				this.renderCounter = this.state.renderCounter;
-				return <Component {...this.props as P} payload={this.state.payload} />;
+				return <>{getComponent()}</>;
 			}
 			return <></>;
 		}

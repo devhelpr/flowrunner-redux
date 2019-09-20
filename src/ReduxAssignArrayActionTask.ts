@@ -4,7 +4,7 @@ import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 export class ReduxAssignArrayActionTask extends FlowTask {
   public execute(node: any, services: any) {
     services.dispatch({
-      type: node.name.replace(' ', '') + 'AssignArrayAction',
+      type: node.variableName.replace(' ', '') + 'AssignArrayAction',
       list: node.payload.list,
     });
 

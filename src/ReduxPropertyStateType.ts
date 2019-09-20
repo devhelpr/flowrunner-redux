@@ -19,7 +19,7 @@ export class ReduxPropertyStateType extends FlowTask {
   }
 
   public getReducer(node: any) {
-    const actionId = node.name.replace(' ', '') + 'SetAction';
+    const actionId = node.variableName.replace(' ', '') + 'SetAction';
     return (state = '', action: any) => {
       try {
         switch (action.type) {
@@ -63,6 +63,9 @@ export class ReduxPropertyStateType extends FlowTask {
   }
 
   public getConfigMetaData() {
-    return [{ name: 'value', defaultValue: '', valueType: 'string', required: false }];
+    return [
+      { name: 'value', defaultValue: '', valueType: 'string', required: false },
+      { name: 'propertyName', defaultValue: '', valueType: 'string', required: false }
+    ];
   }
 }

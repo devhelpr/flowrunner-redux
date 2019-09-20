@@ -17,7 +17,7 @@ export class ReduxHashmapStateType extends FlowTask {
   }
 
   public getReducer(node: any) {
-    const setKeyActionId = node.name.replace(' ', '') + 'SetKeyAction';
+    const setKeyActionId = node.variableName.replace(' ', '') + 'SetKeyAction';
     return (state = {}, action: any) => {
       switch (action.type) {
         case setKeyActionId:

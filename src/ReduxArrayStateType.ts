@@ -17,9 +17,9 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
   }
 
   public getReducer(node: any) {
-    const pushActionId = node.name.replace(' ', '') + 'PushArrayAction';
-    const clearActionId = node.name.replace(' ', '') + 'ClearArrayAction';
-    const assignActionId = node.name.replace(' ', '') + 'AssignArrayAction';
+    const pushActionId = node.variableName.replace(' ', '') + 'PushArrayAction';
+    const clearActionId = node.variableName.replace(' ', '') + 'ClearArrayAction';
+    const assignActionId = node.variableName.replace(' ', '') + 'AssignArrayAction';
 
     return (state = [], action: any) => {
       switch (action.type) {

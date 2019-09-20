@@ -58,7 +58,7 @@ flowEventRunner.registerFlowNodeOverrideAttachHook((node: any, task: any, eventE
 
 flowEventRunner.registerFlowNodeRegisterHook((node: any, task: any) => {
   if (typeof task.getReducer === 'function') {
-    reducers[node.name.replace(/ /g, '')] = task.getReducer(node);
+    reducers[node.variableName.replace(/ /g, '')] = task.getReducer(node);
     return true;
   }
   return false;
