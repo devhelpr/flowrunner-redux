@@ -1,6 +1,6 @@
 {
   "name": "@devhelpr/flowrunner-redux",
-  "version": "0.4.9",
+  "version": "0.5.0",
   "description": "Plugins and helpers to extend flowrunner with redux",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
