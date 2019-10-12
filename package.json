@@ -17,7 +17,7 @@
   "author": "Maikel van de Lisdonk",
   "license": "MIT",
   "dependencies": {
-    "@devhelpr/flowrunner": "0.7.1",
+    "@devhelpr/flowrunner": "0.7.2",
     "@reactivex/rxjs": "^6.4.0",
     "@types/lodash": "^4.14.123",
     "@types/react": "^16.9.2",
