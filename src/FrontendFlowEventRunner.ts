@@ -22,6 +22,10 @@ let store: any = {};
 let services: any = {};
 let observers: any = {};
 
+export interface IFrontendFlowRunner {
+  debug: boolean;
+}
+
 services = {
   logMessage: () => {},
   pluginClasses: {},
@@ -95,8 +99,14 @@ function flowAction(actionName: string, payload: any) {
   }
 }
 
-let startFlow: any = (flowPackage: any, appReducers: any) =>
-  flowEventRunner.start(flowPackage, services, true).then((services: any) => {
+let startFlow: any = (flowPackage: any, appReducers: any, options: IFrontendFlowRunner) => {
+
+  if (options) {
+    if (options.debug) {
+      services.logMessage = (...args : any[]) => console.log(...args);
+    }
+  }
+  return flowEventRunner.start(flowPackage, services, true).then((services: any) => {
     const rootReducer = Redux.combineReducers(Object.assign({}, reducers, appReducers));
 
     if (
@@ -118,7 +128,8 @@ let startFlow: any = (flowPackage: any, appReducers: any) =>
     services.dispatch = store.dispatch;
 
     return services;
-  });
+  })
+};
 
 const getFlowEventRunner: any = () => flowEventRunner;
 

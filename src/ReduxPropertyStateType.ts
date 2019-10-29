@@ -65,7 +65,7 @@ export class ReduxPropertyStateType extends FlowTask {
   public getConfigMetaData() {
     return [
       { name: 'value', defaultValue: '', valueType: 'string', required: false },
-      { name: 'propertyName', defaultValue: '', valueType: 'string', required: false },
+      { name: 'variableName', defaultValue: '', valueType: 'string', required: false },
     ];
   }
 }
