@@ -100,10 +100,9 @@ function flowAction(actionName: string, payload: any) {
 }
 
 let startFlow: any = (flowPackage: any, appReducers: any, options: IFrontendFlowRunner) => {
-
   if (options) {
     if (options.debug) {
-      services.logMessage = (...args : any[]) => console.log(...args);
+      services.logMessage = (...args: any[]) => console.log(...args);
     }
   }
   return flowEventRunner.start(flowPackage, services, true).then((services: any) => {
@@ -128,7 +127,7 @@ let startFlow: any = (flowPackage: any, appReducers: any, options: IFrontendFlow
     services.dispatch = store.dispatch;
 
     return services;
-  })
+  });
 };
 
 const getFlowEventRunner: any = () => flowEventRunner;
