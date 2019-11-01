@@ -17,9 +17,11 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
   }
 
   public getReducer(node: any) {
-    const pushActionId = node.variableName.replace(' ', '') + 'PushArrayAction';
-    const clearActionId = node.variableName.replace(' ', '') + 'ClearArrayAction';
-    const assignActionId = node.variableName.replace(' ', '') + 'AssignArrayAction';
+    const variableName = node.variableName.replace(/ /g, '');
+    
+    const pushActionId = variableName + 'PushArrayAction';
+    const clearActionId = variableName + 'ClearArrayAction';
+    const assignActionId = variableName + 'AssignArrayAction';
 
     return (state = [], action: any) => {
       switch (action.type) {
@@ -65,6 +67,8 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
   }
 
   public getConfigMetaData() {
-    return [];
+    return [
+      {name: 'variableName', defaultValue: '', valueType: 'string', required: true }
+    ];
   }
 }

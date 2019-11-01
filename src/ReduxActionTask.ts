@@ -4,7 +4,7 @@ import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 export class ReduxActionTask extends FlowTask {
   public execute(node: any, services: any) {
     services.dispatch({
-      type: node.variableName.replace(' ', '') + 'SetAction',
+      type: node.setVariable.replace(/ /g, '') + 'SetAction',
       value: node.payload.value,
     });
 
@@ -45,5 +45,11 @@ export class ReduxActionTask extends FlowTask {
 
   public getController() {
     return 'FlowCanvasController';
+  }
+
+  public getConfigMetaData() {
+    return [
+      {name: 'setVariable', defaultValue: '', valueType: 'string', required: true }
+    ];
   }
 }

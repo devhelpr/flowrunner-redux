@@ -4,7 +4,7 @@ import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 export class ReduxAssignArrayActionTask extends FlowTask {
   public execute(node: any, services: any) {
     services.dispatch({
-      type: node.variableName.replace(' ', '') + 'AssignArrayAction',
+      type: node.setVariable.replace(/ /g, '') + 'AssignArrayAction',
       list: node.payload.list,
     });
 
@@ -41,5 +41,11 @@ export class ReduxAssignArrayActionTask extends FlowTask {
 
   public getController() {
     return 'FlowCanvasController';
+  }
+
+  public getConfigMetaData() {
+    return [
+      {name: 'setVariable', defaultValue: '', valueType: 'string', required: true }
+    ];
   }
 }

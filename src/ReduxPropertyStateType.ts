@@ -19,7 +19,7 @@ export class ReduxPropertyStateType extends FlowTask {
   }
 
   public getReducer(node: any) {
-    const actionId = node.variableName.replace(' ', '') + 'SetAction';
+    const actionId = node.variableName.replace(/ /g, '') + 'SetAction';
     return (state = '', action: any) => {
       try {
         switch (action.type) {

@@ -5,7 +5,7 @@ export class ReduxSetKeyActionTask extends FlowTask {
   public execute(node: any, services: any) {
     services.callStack.dispatch({
       key: node.assignToKey,
-      type: node.variableName.replace(' ', '') + 'SetKeyAction',
+      type: node.setVariable.replace(/ /g, '') + 'SetKeyAction',
       value: node.payload.value,
     });
 
@@ -49,6 +49,10 @@ export class ReduxSetKeyActionTask extends FlowTask {
   }
 
   public getConfigMetaData() {
-    return [{ name: 'assignToKey', defaultValue: '', valueType: 'string', required: true }];
+    return [
+      {name: 'assignToKey', defaultValue: '', valueType: 'string', required: true },
+      {name: 'setVariable', defaultValue: '', valueType: 'string', required: true }
+    ];
   }
+
 }

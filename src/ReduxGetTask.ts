@@ -5,7 +5,7 @@ export class ReduxGetTask extends FlowTask {
   public execute(node: any, services: any, callStack: any) {
     return new Promise((resolve, reject) => {
       if (node.assignTo != undefined && node.assignTo != '') {
-        const reducerName = node.variableName.replace(/ /g, '');
+        const reducerName = node.getVariable.replace(/ /g, '');
 
         const store = services.getStore().getState();
 
@@ -56,6 +56,10 @@ export class ReduxGetTask extends FlowTask {
   }
 
   public getConfigMetaData() {
-    return [{ name: 'assignTo', defaultValue: '', valueType: 'string', required: true }];
+    return [
+      {name: 'assignTo', defaultValue: '', valueType: 'string', required: true },
+      {name: 'getVariable', defaultValue: '', valueType: 'string', required: true }
+    ];
   }
+    
 }

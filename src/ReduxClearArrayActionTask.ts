@@ -4,7 +4,7 @@ import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 export class ReduxClearArrayActionTask extends FlowTask {
   public execute(node: any, services: any) {
     services.dispatch({
-      type: node.variableName.replace(' ', '') + 'ClearArrayAction',
+      type: node.setVariable.replace(/ /g, '') + 'ClearArrayAction',
       value: node.payload.value,
     });
 
@@ -41,5 +41,11 @@ export class ReduxClearArrayActionTask extends FlowTask {
 
   public getController() {
     return 'FlowCanvasController';
+  }
+
+  public getConfigMetaData() {
+    return [
+      {name: 'setVariable', defaultValue: '', valueType: 'string', required: true }
+    ];
   }
 }
