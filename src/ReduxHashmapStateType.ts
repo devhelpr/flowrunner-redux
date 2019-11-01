@@ -53,8 +53,6 @@ export class ReduxHashmapStateType extends FlowTask {
   }
 
   public getConfigMetaData() {
-    return [
-      {name: 'variableName', defaultValue: '', valueType: 'string', required: true }
-    ];
+    return [{ name: 'variableName', defaultValue: '', valueType: 'string', required: true }];
   }
 }

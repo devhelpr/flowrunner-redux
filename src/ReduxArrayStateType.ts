@@ -18,7 +18,7 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
 
   public getReducer(node: any) {
     const variableName = node.variableName.replace(/ /g, '');
-    
+
     const pushActionId = variableName + 'PushArrayAction';
     const clearActionId = variableName + 'ClearArrayAction';
     const assignActionId = variableName + 'AssignArrayAction';
@@ -67,8 +67,6 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
   }
 
   public getConfigMetaData() {
-    return [
-      {name: 'variableName', defaultValue: '', valueType: 'string', required: true }
-    ];
+    return [{ name: 'variableName', defaultValue: '', valueType: 'string', required: true }];
   }
 }

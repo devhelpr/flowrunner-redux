@@ -59,7 +59,6 @@ export class ReduxGetKeyTask extends FlowTask {
       { name: 'readKey', defaultValue: '', valueType: 'string', required: true },
       { name: 'assignTo', defaultValue: '', valueType: 'string', required: true },
       { name: 'getVariable', defaultValue: '', valueType: 'string', required: true },
-
     ];
   }
 }

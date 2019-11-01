@@ -50,9 +50,8 @@ export class ReduxSetKeyActionTask extends FlowTask {
 
   public getConfigMetaData() {
     return [
-      {name: 'assignToKey', defaultValue: '', valueType: 'string', required: true },
-      {name: 'setVariable', defaultValue: '', valueType: 'string', required: true }
+      { name: 'assignToKey', defaultValue: '', valueType: 'string', required: true },
+      { name: 'setVariable', defaultValue: '', valueType: 'string', required: true },
     ];
   }
-
 }

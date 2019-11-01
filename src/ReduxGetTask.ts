@@ -57,9 +57,8 @@ export class ReduxGetTask extends FlowTask {
 
   public getConfigMetaData() {
     return [
-      {name: 'assignTo', defaultValue: '', valueType: 'string', required: true },
-      {name: 'getVariable', defaultValue: '', valueType: 'string', required: true }
+      { name: 'assignTo', defaultValue: '', valueType: 'string', required: true },
+      { name: 'getVariable', defaultValue: '', valueType: 'string', required: true },
     ];
   }
-    
 }
