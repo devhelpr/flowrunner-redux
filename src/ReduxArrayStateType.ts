@@ -38,13 +38,13 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
           return newState;
         }
         case setItemByKeyActionId: {
-          let newState = state.map((item : any) => {
+          let newState = state.map((item: any) => {
             if (item[node.idPropertyName] === action.payload[node.idPropertyName]) {
-              return {...action.payload};
-            } 
-            return {...item};
+              return { ...action.payload };
+            }
+            return { ...item };
           });
-        return newState;
+          return newState;
         }
         default:
           return state;
