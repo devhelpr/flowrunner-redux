@@ -6,6 +6,7 @@ import { FlowEventRunner } from '@devhelpr/flowrunner';
 import { ReduxActionTask } from './ReduxActionTask';
 import { ReduxArrayStateType } from './ReduxArrayStateType';
 import { ReduxAssignArrayActionTask } from './ReduxAssignArrayActionTask';
+import { ReduxSetItemByKeyArrayActionTask } from './ReduxSetItemByKeyArrayActionTask';
 import { ReduxPropertyStateType } from './ReduxPropertyStateType';
 import { ReduxClearArrayActionTask } from './ReduxClearArrayActionTask';
 import { ReduxGetKeyTask } from './ReduxGetKeyTask';
@@ -35,6 +36,7 @@ services = {
 services.pluginClasses['ReduxActionTask'] = ReduxActionTask;
 services.pluginClasses['ReduxArrayStateType'] = ReduxArrayStateType;
 services.pluginClasses['ReduxAssignArrayActionTask'] = ReduxAssignArrayActionTask;
+services.pluginClasses['ReduxSetItemByKeyArrayActionTask'] = ReduxSetItemByKeyArrayActionTask;
 services.pluginClasses['ReduxPropertyStateType'] = ReduxPropertyStateType;
 services.pluginClasses['ReduxClearArrayActionTask'] = ReduxClearArrayActionTask;
 services.pluginClasses['ReduxGetKeyTask'] = ReduxGetKeyTask;
