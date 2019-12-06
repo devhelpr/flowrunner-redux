@@ -5,6 +5,7 @@ import { ReduxArrayStateType } from './ReduxArrayStateType';
 import { ReduxAssignArrayActionTask } from './ReduxAssignArrayActionTask';
 import { ReduxPropertyStateType } from './ReduxPropertyStateType';
 import { ReduxClearArrayActionTask } from './ReduxClearArrayActionTask';
+import { ReduxSetItemByKeyArrayActionTask } from './ReduxSetItemByKeyArrayActionTask';
 import { ReduxGetKeyTask } from './ReduxGetKeyTask';
 import { ReduxGetTask } from './ReduxGetTask';
 import { ReduxHashmapStateType } from './ReduxHashmapStateType';
@@ -23,6 +24,7 @@ export {
   ReduxActionTask,
   ReduxAssignArrayActionTask,
   ReduxClearArrayActionTask,
+  ReduxSetItemByKeyArrayActionTask,
   ReduxGetKeyTask,
   ReduxGetTask,
   ReduxPushArrayActionTask,

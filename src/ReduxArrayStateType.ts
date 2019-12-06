@@ -22,6 +22,7 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
     const pushActionId = variableName + 'PushArrayAction';
     const clearActionId = variableName + 'ClearArrayAction';
     const assignActionId = variableName + 'AssignArrayAction';
+    const setItemByKeyActionId = variableName + 'SetItemByKeyAction';
 
     return (state = [], action: any) => {
       switch (action.type) {
@@ -35,6 +36,15 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
           const newState: any = state.slice();
           newState.push(action.value);
           return newState;
+        }
+        case setItemByKeyActionId: {
+          let newState = state.map((item : any) => {
+            if (item[node.idPropertyName] === action.payload[node.idPropertyName]) {
+              return {...action.payload};
+            } 
+            return {...item};
+          });
+        return newState;
         }
         default:
           return state;
