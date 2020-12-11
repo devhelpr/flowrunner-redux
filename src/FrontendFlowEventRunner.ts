@@ -25,6 +25,7 @@ let observers: any = {};
 
 export interface IFrontendFlowRunner {
   debug: boolean;
+  reduxMiddleware: any;
 }
 
 services = {
@@ -115,11 +116,20 @@ let startFlow: any = (flowPackage: any, appReducers: any, options: IFrontendFlow
       (typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined)
     ) {
       const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
-      const enhancer = composeEnhancers(Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')));
+      let enhancer;
+      if (options.reduxMiddleware) {
+        enhancer = composeEnhancers(Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'), options.reduxMiddleware));
+      } else {
+        enhancer = composeEnhancers(Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')));
+      }
 
       store = Redux.createStore(rootReducer, enhancer);
     } else {
-      store = Redux.createStore(rootReducer, Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')));
+      if (options.reduxMiddleware) {
+        store = Redux.createStore(rootReducer, Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'), options.reduxMiddleware));
+      } else {
+        store = Redux.createStore(rootReducer, Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')));
+      }
     }
 
     // TODO : dispatch gaat verhuizen van callStack naar services
