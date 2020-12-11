@@ -114,7 +114,8 @@ let startFlow: any = (flowPackage: any, appReducers: any, options: IFrontendFlow
 
     if (
       process.env.NODE_ENV !== 'production' &&
-      typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined
+      typeof window !== 'undefined' &&
+      (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined
     ) {
       const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
       let enhancer;
@@ -136,9 +137,9 @@ let startFlow: any = (flowPackage: any, appReducers: any, options: IFrontendFlow
         );
       } else {
         store = Redux.createStore(
-          rootReducer, 
-          options.initialStoreState, 
-          Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'))
+          rootReducer,
+          options.initialStoreState,
+          Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')),
         );
       }
     }
