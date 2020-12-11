@@ -26,6 +26,7 @@ let observers: any = {};
 export interface IFrontendFlowRunner {
   debug: boolean;
   reduxMiddleware: any;
+  initialStoreState: any;
 }
 
 services = {
@@ -125,15 +126,20 @@ let startFlow: any = (flowPackage: any, appReducers: any, options: IFrontendFlow
         enhancer = composeEnhancers(Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')));
       }
 
-      store = Redux.createStore(rootReducer, enhancer);
+      store = Redux.createStore(rootReducer, options.initialStoreState, enhancer);
     } else {
       if (options.reduxMiddleware) {
         store = Redux.createStore(
           rootReducer,
+          options.initialStoreState,
           Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'), options.reduxMiddleware),
         );
       } else {
-        store = Redux.createStore(rootReducer, Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')));
+        store = Redux.createStore(
+          rootReducer, 
+          options.initialStoreState, 
+          Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'))
+        );
       }
     }
 
