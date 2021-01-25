@@ -1,5 +1,5 @@
 import * as Redux from 'redux';
-import * as Rx from '@reactivex/rxjs';
+import * as Rx from 'rxjs';
 import thunk from 'redux-thunk';
 
 import { FlowEventRunner } from '@devhelpr/flowrunner';
@@ -74,9 +74,9 @@ flowEventRunner.registerFlowNodeRegisterHook((node: any, task: any) => {
 
 let subjectStoreChange = new Rx.Subject();
 let flowNotifierFactory = (name: string) => {
-  return function(middlewareAPI: any) {
-    return function(next: any) {
-      return function(action: any) {
+  return function (middlewareAPI: any) {
+    return function (next: any) {
+      return function (action: any) {
         let prevState = middlewareAPI.getState();
 
         var result = next(action);
