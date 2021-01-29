@@ -1,11 +1,12 @@
-import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
-const REDUX_ASSIGN_SET_VALUE_ACTION = 'REDUX_ASSIGN_SET_VALUE_ACTION';
+//const REDUX_ASSIGN_SET_VALUE_ACTION = 'REDUX_ASSIGN_SET_VALUE_ACTION';
 
 export class ReduxPropertyStateType extends FlowTask {
-  public execute(node: any, services: any, callStack: any) {
-    console.log('RUNNING ReduxPropertyStateType: ' + node.id + ' - ' + node.name);
+  public execute(node: any, _services: any, _callStack: any) {
+    console.log(
+      'RUNNING ReduxPropertyStateType: ' + node.id + ' - ' + node.name
+    );
 
     return true;
   }
@@ -65,7 +66,12 @@ export class ReduxPropertyStateType extends FlowTask {
   public getConfigMetaData() {
     return [
       { name: 'value', defaultValue: '', valueType: 'string', required: false },
-      { name: 'variableName', defaultValue: '', valueType: 'string', required: false },
+      {
+        name: 'variableName',
+        defaultValue: '',
+        valueType: 'string',
+        required: false,
+      },
     ];
   }
 }

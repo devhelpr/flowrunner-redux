@@ -1,9 +1,10 @@
-import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxHashmapStateType extends FlowTask {
-  public execute(node: any, services: any) {
-    console.log('RUNNING ReduxHashmapStateType: ' + node.id + ' - ' + node.name);
+  public execute(node: any, _services: any) {
+    console.log(
+      'RUNNING ReduxHashmapStateType: ' + node.id + ' - ' + node.name
+    );
 
     return true;
   }
@@ -53,6 +54,13 @@ export class ReduxHashmapStateType extends FlowTask {
   }
 
   public getConfigMetaData() {
-    return [{ name: 'variableName', defaultValue: '', valueType: 'string', required: true }];
+    return [
+      {
+        name: 'variableName',
+        defaultValue: '',
+        valueType: 'string',
+        required: true,
+      },
+    ];
   }
 }

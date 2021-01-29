@@ -1,8 +1,7 @@
-import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 import { Observable } from 'rxjs';
 
-var isEqual = function (value: any, other: any) {
+var isEqual = function(value: any, other: any) {
   // Get the value type
   var type = Object.prototype.toString.call(value);
 
@@ -13,12 +12,14 @@ var isEqual = function (value: any, other: any) {
   if (['[object Array]', '[object Object]'].indexOf(type) < 0) return false;
 
   // Compare the length of the length of the two items
-  var valueLen = type === '[object Array]' ? value.length : Object.keys(value).length;
-  var otherLen = type === '[object Array]' ? other.length : Object.keys(other).length;
+  var valueLen =
+    type === '[object Array]' ? value.length : Object.keys(value).length;
+  var otherLen =
+    type === '[object Array]' ? other.length : Object.keys(other).length;
   if (valueLen !== otherLen) return false;
 
   // Compare two items
-  var compare = function (item1: any, item2: any) {
+  var compare = function(item1: any, item2: any) {
     // Get the object type
     var itemType = Object.prototype.toString.call(item1);
 
@@ -40,6 +41,7 @@ var isEqual = function (value: any, other: any) {
         if (item1 !== item2) return false;
       }
     }
+    return true;
   };
 
   // Compare properties
@@ -61,16 +63,21 @@ var isEqual = function (value: any, other: any) {
 
 export class StoreObserverTask extends FlowTask {
   public execute(node: any, services: any) {
-    let counter = 0;
     const observable = Observable.create((observer: any) => {
       try {
-        if (node.propertyName !== undefined && node.propertyName != '') {
+        if (node.propertyName !== undefined && node.propertyName !== '') {
           const observableSubscription = services.getObservable('storechange');
 
-          if (observableSubscription !== undefined && observableSubscription !== false) {
+          if (
+            observableSubscription !== undefined &&
+            observableSubscription !== false
+          ) {
             const observerSubscription = {
               complete: () => {
-                console.log('StoreObserverTask: Completed observable for ', node.name);
+                console.log(
+                  'StoreObserverTask: Completed observable for ',
+                  node.name
+                );
               },
               error: (err: any) => {
                 observer.error(err);
@@ -79,8 +86,17 @@ export class StoreObserverTask extends FlowTask {
                 // payload:
                 // - nextState
                 // - prevState
-                if (node.propertyName !== undefined && node.propertyName != null && node.propertyName != '') {
-                  if (!isEqual(payload.nextState[node.propertyName], payload.prevState[node.propertyName])) {
+                if (
+                  node.propertyName !== undefined &&
+                  node.propertyName !== null &&
+                  node.propertyName !== ''
+                ) {
+                  if (
+                    !isEqual(
+                      payload.nextState[node.propertyName],
+                      payload.prevState[node.propertyName]
+                    )
+                  ) {
                     observer.next(payload.nextState);
                   }
                 }
@@ -89,7 +105,10 @@ export class StoreObserverTask extends FlowTask {
 
             observableSubscription.subscribe(observerSubscription);
           } else {
-            observer.error('StoreObserverTask: Error - observable not found', node.observe);
+            observer.error(
+              'StoreObserverTask: Error - observable not found',
+              node.observe
+            );
           }
         } else {
           observer.error('StoreObserverTask: Error - nothing to observe');
@@ -150,6 +169,13 @@ export class StoreObserverTask extends FlowTask {
   }
 
   public getConfigMetaData() {
-    return [{ name: 'propertyName', defaultValue: '', valueType: 'string', required: true }];
+    return [
+      {
+        name: 'propertyName',
+        defaultValue: '',
+        valueType: 'string',
+        required: true,
+      },
+    ];
   }
 }

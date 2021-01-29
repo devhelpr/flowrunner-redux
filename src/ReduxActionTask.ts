@@ -1,4 +1,3 @@
-import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxActionTask extends FlowTask {
@@ -48,6 +47,13 @@ export class ReduxActionTask extends FlowTask {
   }
 
   public getConfigMetaData() {
-    return [{ name: 'setVariable', defaultValue: '', valueType: 'string', required: true }];
+    return [
+      {
+        name: 'setVariable',
+        defaultValue: '',
+        valueType: 'string',
+        required: true,
+      },
+    ];
   }
 }

@@ -1,5 +1,5 @@
 import * as Redux from 'redux';
-import * as Rx from 'rxjs';
+import { Subject } from 'rxjs';
 import thunk from 'redux-thunk';
 
 import { FlowEventRunner } from '@devhelpr/flowrunner';
@@ -37,8 +37,12 @@ services = {
 
 services.pluginClasses['ReduxActionTask'] = ReduxActionTask;
 services.pluginClasses['ReduxArrayStateType'] = ReduxArrayStateType;
-services.pluginClasses['ReduxAssignArrayActionTask'] = ReduxAssignArrayActionTask;
-services.pluginClasses['ReduxSetItemByKeyArrayActionTask'] = ReduxSetItemByKeyArrayActionTask;
+services.pluginClasses[
+  'ReduxAssignArrayActionTask'
+] = ReduxAssignArrayActionTask;
+services.pluginClasses[
+  'ReduxSetItemByKeyArrayActionTask'
+] = ReduxSetItemByKeyArrayActionTask;
 services.pluginClasses['ReduxPropertyStateType'] = ReduxPropertyStateType;
 services.pluginClasses['ReduxClearArrayActionTask'] = ReduxClearArrayActionTask;
 services.pluginClasses['ReduxGetKeyTask'] = ReduxGetKeyTask;
@@ -53,16 +57,18 @@ services.pluginClasses['StoreObserverTask'] = StoreObserverTask;
 
 let flowEventRunner = new FlowEventRunner();
 
-flowEventRunner.registerFlowNodeOverrideAttachHook((node: any, task: any, eventEmitter: any, nodeEvent: any) => {
-  if (typeof task.getAction === 'function') {
-    let nodeInstance = (<any>Object).assign({}, node);
-    const actionName = node.name.replace(/ /g, '');
-    actions[actionName] = {
-      action: task.getAction(actionName, node, eventEmitter),
-      nodeEvent: nodeEvent,
-    };
+flowEventRunner.registerFlowNodeOverrideAttachHook(
+  (node: any, task: any, eventEmitter: any, nodeEvent: any) => {
+    if (typeof task.getAction === 'function') {
+      //let nodeInstance = (<any>Object).assign({}, node);
+      const actionName = node.name.replace(/ /g, '');
+      actions[actionName] = {
+        action: task.getAction(actionName, node, eventEmitter),
+        nodeEvent: nodeEvent,
+      };
+    }
   }
-});
+);
 
 flowEventRunner.registerFlowNodeRegisterHook((node: any, task: any) => {
   if (typeof task.getReducer === 'function') {
@@ -72,11 +78,11 @@ flowEventRunner.registerFlowNodeRegisterHook((node: any, task: any) => {
   return false;
 });
 
-let subjectStoreChange = new Rx.Subject();
-let flowNotifierFactory = (name: string) => {
-  return function (middlewareAPI: any) {
-    return function (next: any) {
-      return function (action: any) {
+let subjectStoreChange = new Subject();
+let flowNotifierFactory = (_name: string) => {
+  return function(middlewareAPI: any) {
+    return function(next: any) {
+      return function(action: any) {
         let prevState = middlewareAPI.getState();
 
         var result = next(action);
@@ -103,55 +109,78 @@ function flowAction(actionName: string, payload: any) {
   }
 }
 
-let startFlow: any = (flowPackage: any, appReducers: any, options: IFrontendFlowRunner) => {
+let startFlow: any = (
+  flowPackage: any,
+  appReducers: any,
+  options: IFrontendFlowRunner
+) => {
   if (options) {
     if (options.debug) {
       services.logMessage = (...args: any[]) => console.log(...args);
     }
   }
-  return flowEventRunner.start(flowPackage, services, true).then((services: any) => {
-    const rootReducer = Redux.combineReducers(Object.assign({}, reducers, appReducers));
+  return flowEventRunner
+    .start(flowPackage, services, true)
+    .then((services: any) => {
+      const rootReducer = Redux.combineReducers(
+        Object.assign({}, reducers, appReducers)
+      );
 
-    if (
-      process.env.NODE_ENV !== 'production' &&
-      typeof window !== 'undefined' &&
-      (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined
-    ) {
-      const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
-      let enhancer;
-      if (options.reduxMiddleware) {
-        enhancer = composeEnhancers(
-          Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'), options.reduxMiddleware),
-        );
-      } else {
-        enhancer = composeEnhancers(Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')));
-      }
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        typeof window !== 'undefined' &&
+        (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined
+      ) {
+        const composeEnhancers =
+          (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
+        let enhancer;
+        if (options.reduxMiddleware) {
+          enhancer = composeEnhancers(
+            Redux.applyMiddleware(
+              thunk,
+              flowNotifierFactory('flownotifier'),
+              options.reduxMiddleware
+            )
+          );
+        } else {
+          enhancer = composeEnhancers(
+            Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'))
+          );
+        }
 
-      store = Redux.createStore(rootReducer, options.initialStoreState, enhancer);
-    } else {
-      if (options.reduxMiddleware) {
         store = Redux.createStore(
           rootReducer,
           options.initialStoreState,
-          Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'), options.reduxMiddleware),
+          enhancer
         );
       } else {
-        store = Redux.createStore(
-          rootReducer,
-          options.initialStoreState,
-          Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier')),
-        );
+        if (options.reduxMiddleware) {
+          store = Redux.createStore(
+            rootReducer,
+            options.initialStoreState,
+            Redux.applyMiddleware(
+              thunk,
+              flowNotifierFactory('flownotifier'),
+              options.reduxMiddleware
+            )
+          );
+        } else {
+          store = Redux.createStore(
+            rootReducer,
+            options.initialStoreState,
+            Redux.applyMiddleware(thunk, flowNotifierFactory('flownotifier'))
+          );
+        }
       }
-    }
 
-    // TODO : dispatch gaat verhuizen van callStack naar services
-    //  ... het is immers ook een externe dependency
-    // .. dus aanpassen in de diverse tasks
+      // TODO : dispatch gaat verhuizen van callStack naar services
+      //  ... het is immers ook een externe dependency
+      // .. dus aanpassen in de diverse tasks
 
-    services.dispatch = store.dispatch;
+      services.dispatch = store.dispatch;
 
-    return services;
-  });
+      return services;
+    });
 };
 
 const getFlowEventRunner: any = () => flowEventRunner;

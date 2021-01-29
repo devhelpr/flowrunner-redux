@@ -1,10 +1,14 @@
-import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxGetKeyTask extends FlowTask {
-  public execute(node: any, services: any, callStack: any): any {
+  public execute(node: any, services: any, _callStack: any): any {
     return new Promise((resolve, reject) => {
-      if (node.assignTo != undefined && node.readKey != undefined && node.assignTo != '' && node.readKey != '') {
+      if (
+        node.assignTo !== undefined &&
+        node.readKey !== undefined &&
+        node.assignTo !== '' &&
+        node.readKey !== ''
+      ) {
         const reducerName = node.getVariable.replace(/ /g, '');
         const store = services.getStore().getState();
 
@@ -56,9 +60,24 @@ export class ReduxGetKeyTask extends FlowTask {
 
   public getConfigMetaData() {
     return [
-      { name: 'readKey', defaultValue: '', valueType: 'string', required: true },
-      { name: 'assignTo', defaultValue: '', valueType: 'string', required: true },
-      { name: 'getVariable', defaultValue: '', valueType: 'string', required: true },
+      {
+        name: 'readKey',
+        defaultValue: '',
+        valueType: 'string',
+        required: true,
+      },
+      {
+        name: 'assignTo',
+        defaultValue: '',
+        valueType: 'string',
+        required: true,
+      },
+      {
+        name: 'getVariable',
+        defaultValue: '',
+        valueType: 'string',
+        required: true,
+      },
     ];
   }
 }

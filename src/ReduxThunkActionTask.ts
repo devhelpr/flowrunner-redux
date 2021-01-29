@@ -1,4 +1,3 @@
-import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxThunkActionTask extends FlowTask {
@@ -40,12 +39,13 @@ export class ReduxThunkActionTask extends FlowTask {
     return 'FlowCanvasController';
   }
 
-  public getAction(actionName: string, nodeInstance: any, nodeEmitter: any) {
+  public getAction(_actionName: string, _nodeInstance: any, nodeEmitter: any) {
     return (nodeEvent: any, payload: any) => {
       return (dispatch: any) => {
-        console.log('reactthunkaction dispatched...ready to trigger events', nodeEvent);
+        //console.log('reactthunkaction dispatched...ready to trigger events', nodeEvent);
         nodeEvent.outputs.map((node: any) => {
           nodeEmitter.emit(node.endshapeid.toString(), payload, dispatch);
+          return true;
         });
       };
     };

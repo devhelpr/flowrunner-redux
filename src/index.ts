@@ -13,7 +13,11 @@ import { ReduxPushArrayActionTask } from './ReduxPushArrayActionTask';
 import { ReduxSetKeyActionTask } from './ReduxSetKeyActionTask';
 import { ReduxThunkActionTask } from './ReduxThunkActionTask';
 import { StoreObserverTask } from './StoreObserverTask';
-import { startFlow, flowAction, getFlowEventRunner } from './FrontendFlowEventRunner';
+import {
+  startFlow,
+  flowAction,
+  getFlowEventRunner,
+} from './FrontendFlowEventRunner';
 
 export {
   ReactComponentFlowConnector,

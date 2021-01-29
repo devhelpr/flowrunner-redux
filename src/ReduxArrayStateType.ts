@@ -1,8 +1,7 @@
 import * as FlowRunner from '@devhelpr/flowrunner';
-import * as Promise from 'promise';
 
 export class ReduxArrayStateType extends FlowRunner.FlowTask {
-  public execute(node: any, services: any) {
+  public execute(node: any, _services: any) {
     console.log('RUNNING ReduxArrayStateType: ' + node.id + ' - ' + node.name);
 
     return true;
@@ -39,7 +38,9 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
         }
         case setItemByKeyActionId: {
           let newState = state.map((item: any) => {
-            if (item[node.idPropertyName] === action.payload[node.idPropertyName]) {
+            if (
+              item[node.idPropertyName] === action.payload[node.idPropertyName]
+            ) {
               return { ...action.payload };
             }
             return { ...item };
@@ -77,6 +78,13 @@ export class ReduxArrayStateType extends FlowRunner.FlowTask {
   }
 
   public getConfigMetaData() {
-    return [{ name: 'variableName', defaultValue: '', valueType: 'string', required: true }];
+    return [
+      {
+        name: 'variableName',
+        defaultValue: '',
+        valueType: 'string',
+        required: true,
+      },
+    ];
   }
 }

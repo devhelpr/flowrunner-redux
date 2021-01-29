@@ -1,4 +1,3 @@
-import * as Promise from 'promise';
 import { FlowTask, FlowTaskPackageType } from '@devhelpr/flowrunner';
 
 export class ReduxSetItemByKeyArrayActionTask extends FlowTask {
@@ -44,6 +43,13 @@ export class ReduxSetItemByKeyArrayActionTask extends FlowTask {
   }
 
   public getConfigMetaData() {
-    return [{ name: 'setVariable', defaultValue: '', valueType: 'string', required: true }];
+    return [
+      {
+        name: 'setVariable',
+        defaultValue: '',
+        valueType: 'string',
+        required: true,
+      },
+    ];
   }
 }
