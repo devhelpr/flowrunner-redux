@@ -1,6 +1,6 @@
 {
   "name": "@devhelpr/flowrunner-redux",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "author": "Maikel van de Lisdonk",
   "description": "Plugins and helpers to extend flowrunner with redux",
   "main": "dist/index.js",
